@@ -1,4 +1,4 @@
-Qwiic TItan GPS Py 
+Qwiic Titan GPS Py 
 ==========================
 
-This package provdes functionality for Titan XA1110 GPS module. 
+This package provdes functionality for SparkFun GPS Breakout - XA1110 GPS module. 
