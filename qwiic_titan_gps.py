@@ -87,43 +87,111 @@ import pynmea2
 address = 0x10
 
 MAX_I2C_BUFFER = 32
-MAX_DATA_BUFFER = 255
+MAX_GPS_BUFFER = 255
 
 _i2c = qwiic_i2c.getI2CDriver()
+
+gnss_messages = {
+
+    'Time'           : 0,
+    'Latitude'       : 0,
+    'Lat'            : 0,
+    'Lat_Direction'  : "",
+    'Longitude'      : 0,
+    'Long'           : 0,
+    'Long_Direction' : "",
+    'Altitude'       : 0,
+    'Altitude_Units' : "",
+    'Sat_Number'     : 0,
+    'Geo_Separation' : 0,
+    'Geo_Sep_Units'  : "",
+    'Data_Age'       : 0,
+    'Ref_Station_ID' : 0
+}
 
 def connect_to_module():
     return qwiic_i2c.isDeviceConnected(address)
 
 def get_raw_data():
+
     raw_sentences = ""
-    buffer_tracker = MAX_DATA_BUFFER
+    buffer_tracker = MAX_GPS_BUFFER
+    raw_data = []
 
     while buffer_tracker != 0: 
 
         if buffer_tracker > MAX_I2C_BUFFER:
-            raw_data = _i2c.readBlock(address, 0x00, MAX_I2C_BUFFER)
+            raw_data += _i2c.readBlock(address, 0x00, MAX_I2C_BUFFER)
             buffer_tracker = buffer_tracker - MAX_I2C_BUFFER
             if raw_data[0] == 0x0A:
                 break
 
         elif buffer_tracker < MAX_I2C_BUFFER:
-            raw_data = _i2c.readBlock(address, 0x00, buffer_tracker)
+            raw_data += _i2c.readBlock(address, 0x00, buffer_tracker)
             buffer_tracker = 0
             if raw_data[0] == 0x0A:
                 break
 
-        for sentence in raw_data: 
-            raw_sentences = raw_sentences + chr(sentence)
+        for raw_bytes in raw_data: 
+            raw_sentences = raw_sentences + chr(raw_bytes)
         
     return raw_sentences
 
 def prepare_data():
+
     sentences = get_raw_data()
-    gnss_list = sentences.split('$')
     clean_gnss_list = []
+    complete_sentence_list = []
+    gnss_list = sentences.split('\n')
+
     for sentence in gnss_list:
-        clean_gnss_list.append('$' + sentence.replace('\n',''))
-    return clean_gnss_list
+        if sentence is not '':
+            clean_gnss_list.append(sentence)
+
+    for index,sentence in enumerate(clean_gnss_list):
+        if not sentence.startswith('$') and index is not 0:
+            joined = clean_gnss_list[index - 1] + sentence
+            complete_sentence_list.append(joined)
+        else:
+            complete_sentence_list.append(sentence)
+
+
+    return complete_sentence_list
+
+def get_nmea_data():
+    gps_data = prepare_data()
+    msg = ""
+    for sentence in gps_data:
+        try:
+            msg = pynmea2.parse(sentence)
+            add_to_gnss_messages(msg)
+        except pynmea2.nmea.ParseError:
+            pass
+
+    return True
+
+def add_to_gnss_messages(sentence): 
+    try:
+        gnss_messages['Time'] = sentence.lat_dir
+        gnss_messages['Lat_Direction'] = sentence.lat_dir
+        gnss_messages['Long_Direction'] = sentence.lon_dir
+        gnss_messages['Latitude'] = sentence.latitude
+        gnss_messages['Lat'] = sentence.lat
+        gnss_messages['Longitude'] = sentence.longitude
+        gnss_messages['Long'] = sentence.lon
+        gnss_messages['Altitude'] = sentence.altitude
+        gnss_messages['Altitude_Units'] = sentence.altitude_units
+        gnss_messages['Sat_Number'] = sentence.num_sats
+        gnss_messages['Geo_Separation'] = sentence.geo_sep
+        gnss_messages['Geo_Sep_Units'] = sentence.geo_sep_units
+        gnss_messages['Data_Age'] = sentence.age_gps_data
+        gnss_messages['Ref_Station_ID'] = sentence.ref_station_id
+    except KeyError:
+        pass
+    except AttributeError:
+        pass
+
+    return True
 
 def run_example():
 
@@ -131,17 +199,12 @@ def run_example():
         print("Connected.")
 
         while True:
-            gps_data = prepare_data()
-            for sentence in gps_data:
-                try:
-                   msg = pynmea2.parse(sentence)
-                   print(msg.lat)
-                   print(msg.lon)
-                except:
-                    print(sentence)
-                    pass
+            if get_nmea_data() is True:
+                for k,v in gnss_messages.items():
+                    print(k, ":", v)
 
-        sleep(.100)
+            sleep(1)
+
 
 if __name__ == '__main__':
     try:
