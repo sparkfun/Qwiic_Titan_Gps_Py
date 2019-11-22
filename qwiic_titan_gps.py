@@ -60,7 +60,6 @@ New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.s
 """
 from __future__ import print_function,division
 
-from time import sleep
 import sys
 import qwiic_i2c
 import pynmea2
@@ -336,7 +335,7 @@ class QwiicGps(object):
             :rtype: Boolean
         """
         try:
-            self.gnss_messages['Time'] = sentence.lat_dir
+            self.gnss_messages['Time'] = sentence.timestamp
             self.gnss_messages['Lat_Direction'] = sentence.lat_dir
             self.gnss_messages['Long_Direction'] = sentence.lon_dir
             self.gnss_messages['Latitude'] = sentence.latitude
