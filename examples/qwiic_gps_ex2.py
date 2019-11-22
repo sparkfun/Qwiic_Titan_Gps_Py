@@ -55,10 +55,8 @@ def run_example():
 
     while True:
         if qwiicGPS.get_nmea_data() is True:
-            print("Latitude: {}, Longitude: {}, Time: {}".format(
-                qwiicGPS.gnss_messages['Latitude'],
-                qwiicGPS.gnss_messages['Longitude'],
-                qwiicGPS.gnss_messages['Time']))
+            for k,v in qwiicGPS.gnss_messages.items():
+                print(k, ":", v)
 
         sleep(1)
 

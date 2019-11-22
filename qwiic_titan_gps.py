@@ -202,7 +202,6 @@ class QwiicGps(object):
         'Sat_Number'     : 0,
         'Geo_Separation' : 0,
         'Geo_Sep_Units'  : "",
-        'Data_Age'       : 0,
     }
 
     def __init__(self, address=None, i2c_driver=None):
@@ -347,7 +346,6 @@ class QwiicGps(object):
             self.gnss_messages['Sat_Number'] = sentence.num_sats
             self.gnss_messages['Geo_Separation'] = sentence.geo_sep
             self.gnss_messages['Geo_Sep_Units'] = sentence.geo_sep_units
-            self.gnss_messages['Data_Age'] = sentence.age_gps_data
         except KeyError:
             pass
         except AttributeError:
