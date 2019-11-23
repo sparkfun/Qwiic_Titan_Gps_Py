@@ -160,16 +160,16 @@ def _checkForRPiI2CClockStretch():
 # runtine
 #
 # The name of this device
-_DEFAULT_NAME = "Qwiic GPS"
+_DEFAULT_NAME = "Qwiic Titan GPS"
 
 # Some devices have multiple availabel addresses - this is a list of these addresses.
 # NOTE: The first address in this list is considered the default I2C address for the
 # device.
 _AVAILABLE_I2C_ADDRESS = [0x10]
 
-class QwiicGps(object):
+class QwiicTitanGps(object):
     """
-    QwiicGps
+    QwiicTitanGps
 
         :param address: The I2C address to use for the device.
                         If not provided, the default address is used.
@@ -212,9 +212,9 @@ class QwiicGps(object):
         #
         # Lets check if it's enabled. This is done only once in
         # the session
-        if not QwiicGps._RPiCheck:
+        if not QwiicTitanGps._RPiCheck:
             _checkForRPiI2CClockStretch()
-            QwiicGps._RPiCheck = True
+            QwiicTitanGps._RPiCheck = True
 
         # Did the user specify an I2C address?
 

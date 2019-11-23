@@ -44,7 +44,7 @@ import qwiic_titan_gps
 def run_example():
 
     print("SparkFun u-blox GPS!")
-    qwiicGPS = qwiic_titan_gps.QwiicGps()
+    qwiicGPS = qwiic_titan_gps.QwiicTitanGps()
 
     if qwiicGPS.connected is False:
         print("Could not connect to to the SparkFun GPS Unit. Double check that\
