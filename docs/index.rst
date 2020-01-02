@@ -25,7 +25,7 @@ Table of Contents
 .. toctree::
    :caption: Other Links
 
-	SparkFun <https://sparkfun.com>
-	SparkFun Qwiic GPS Breakout - XA1110 <https://www.sparkfun.com/products/14414>
-	GitHub <https://github.com/sparkfun/Qwiic_Titan_Gps_Py>
-	SparkFun qwiic <https://www.sparkfun.com/qwiic>
+   SparkFun <https://sparkfun.com>
+   SparkFun Qwiic GPS Breakout - XA1110 <https://www.sparkfun.com/products/14414>
+   GitHub <https://github.com/sparkfun/Qwiic_Titan_Gps_Py>
+   SparkFun qwiic <https://www.sparkfun.com/qwiic>

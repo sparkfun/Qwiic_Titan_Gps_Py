@@ -5,8 +5,7 @@ Qwiic_GPS Breakout XA110
 
 This is a Python module for the SparkFun GPS Breakout - XA110. 
 
-This package should be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py). 
-New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
+This package should be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py).  New to qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
 
 ## Contents
 * [Supported Platforms](#supported-platforms)
@@ -105,3 +104,4 @@ if __name__ == '__main__':
  ```
 
 See the examples directory for more detailed use examples.
+
