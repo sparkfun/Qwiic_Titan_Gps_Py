@@ -47,7 +47,7 @@
 """
 
 qwiic_titan_gps
-============
+===============
 Python library for [SparkFun GPS Breakot -
 XA1110](https://www.sparkfun.com/products/14414)
 
