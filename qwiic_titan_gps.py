@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # qwiic_titan_gps.py
 #
-# Python library for the SparkFun's line of u-Blox GPS units.
+# Python library for the SparkFun's GPS Breakout - XA1110. 
 #
 # SparkFun GPS Breakout - XA1110
 #   https://www.sparkfun.com/products/14414
@@ -10,10 +10,10 @@
 #
 # Written by SparkFun Electronics, November 2019
 #
-# This python library supports the SparkFun Electroncis qwiic
-# qwiic sensor/board ecosystem
+# This python library supports the SparkFun Electroncis Qwiic sensor/board
+# ecosystem.
 #
-# More information on qwiic is at https:// www.sparkfun.com/qwiic
+# More information on Qwiic is at https://www.sparkfun.com/qwiic
 #
 # Do you like this library? Help support SparkFun. Buy a board!
 #==================================================================================
@@ -38,8 +38,8 @@
 # SOFTWARE.
 #==================================================================================
 #
-# This is mostly a port of existing Arduino functionaly, so pylint is sad.
-# The goal is to keep the public interface pthonic, but internal is internal
+# The goal of this is to keep the public interface pythonic, but internal is
+# internal and code is kept as close to its Arduino source library as possible.
 #
 # pylint: disable=line-too-long, bad-whitespace, invalid-name, too-many-public-methods
 #
@@ -53,9 +53,9 @@ XA1110](https://www.sparkfun.com/products/14414)
 This python package is a port of the existing [SparkFun GPS Arduino\
 Library](https://github.com/sparkfun/SparkFun_I2C_GPS_Arduino_Library).
 
-This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
+This package can be used in conjunction with the overall [SparkFun Qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
-New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
+New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
 
 """
 from __future__ import print_function,division
@@ -73,7 +73,7 @@ import pynmea2
 # To do this:
 #   - Login as root to the target Raspberry Pi
 #   - Open the file /boot/config.txt in your favorite editor (vi, nano ...etc)
-#   - Scroll down until the bloct that contains the following is found:
+#   - Scroll down until the block that contains the following is found:
 #           dtparam=i2c_arm=on
 #           dtparam=i2s=on
 #           dtparam=spi=on
@@ -82,17 +82,18 @@ import pynmea2
 #           dtparam=i2c_arm_baudrate=10000
 #
 #   - Save the file
-#   - Reboot the raspberry pi
+#   - Reboot the Raspberry Pi
 #======================================================================
+
 def __checkIsOnRPi():
 
-    # Are we on a Pi? First Linux?
+    # Are we on a Pi or Linux?
 
     if sys.platform not in ('linux', 'linux2'):
         return False
 
     # we can find out if we are on a RPI by looking at the contents
-    # of /proc/device-tree/compatable
+    # of /proc/device-tree/compatible
 
     try:
         with open('/proc/device-tree/compatible', 'r') as fCompat:
@@ -103,15 +104,15 @@ def __checkIsOnRPi():
     except IOError:
         return False
 
-# check if stretching is set if on a rpi
+# check if stretching is set if on a Raspberry Pi. 
 #
 def _checkForRPiI2CClockStretch():
 
-    #are we on a rpi?
+    # Check if we're on a Raspberry Pi first.
     if not __checkIsOnRPi():
         return
 
-    # read the boot config file and see if the clock stretch param is set
+    # read the boot config file and see if the clock stretch parameter is set
     try:
         with open('/boot/config.txt') as fConfig:
 
@@ -154,15 +155,15 @@ def _checkForRPiI2CClockStretch():
 ============================================================================
         """)
 
-# Define the device name and I2C addresses. These are set in the class defintion
-# as class variables, making them avilable without having to create a class instance.
-# This allows higher level logic to rapidly create a index of qwiic devices at
-# runtine
+# Define the device name and I2C addresses. These are set in the class definition
+# as class variables, making them available without having to create a class instance.
+# This allows higher level logic to rapidly create a index of Qwiic devices at
+# runtime.
 #
 # The name of this device
 _DEFAULT_NAME = "Qwiic Titan GPS"
 
-# Some devices have multiple availabel addresses - this is a list of these addresses.
+# Some devices have multiple available addresses - this is a list of these addresses.
 # NOTE: The first address in this list is considered the default I2C address for the
 # device.
 _AVAILABLE_I2C_ADDRESS = [0x10]
@@ -175,7 +176,7 @@ class QwiicTitanGps(object):
                         If not provided, the default address is used.
         :param i2c_driver: An existing i2c driver object. If not provided
                         a driver object is created.
-        :return: The ublox_gps device object.
+        :return: The Qwiic Titan GPS device object.
         :rtype: Object
     """
 
@@ -208,7 +209,7 @@ class QwiicTitanGps(object):
 
 
         # As noted above, to run this device on a Raspberry Pi,
-        # clock streching is needed.
+        # clock stretching is needed.
         #
         # Lets check if it's enabled. This is done only once in
         # the session
@@ -234,7 +235,7 @@ class QwiicTitanGps(object):
 
     def is_connected(self):
         """
-            Determine if a gps device is conntected to the system..
+            Determine if a GPS device is connected to the system..
 
             :return: True if the device is connected, otherwise False.
             :rtype: bool
@@ -256,8 +257,8 @@ class QwiicTitanGps(object):
 
     def get_raw_data(self):
         """
-            This function pulls gps data from the module 255 bytes at a time.
-            :return: A string of all the gps data.
+            This function pulls GPS data from the module 255 bytes at a time.
+            :return: A string of all the GPS data.
             :rtype: String
         """
         raw_sentences = ""
@@ -267,13 +268,15 @@ class QwiicTitanGps(object):
         while buffer_tracker != 0:
 
             if buffer_tracker > self.MAX_I2C_BUFFER:
-                raw_data += self._i2c.readBlock(self.address, 0x00, self.MAX_I2C_BUFFER)
+                raw_data.extend(self._i2c.readBlock(self.address, 0x00,
+                                                    self.MAX_I2C_BUFFER))
                 buffer_tracker = buffer_tracker - self.MAX_I2C_BUFFER
                 if raw_data[0] == 0x0A:
                     break
 
             elif buffer_tracker < self.MAX_I2C_BUFFER:
-                raw_data += self._i2c.readBlock(self.address, 0x00, buffer_tracker)
+                raw_data.extend(self._i2c.readBlock(self.address, 0x00,
+                                                    buffer_tracker))
                 buffer_tracker = 0
                 if raw_data[0] == 0x0A:
                     break

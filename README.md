@@ -5,7 +5,8 @@ Qwiic_GPS Breakout XA110
 
 This is a Python module for the SparkFun GPS Breakout - XA110. 
 
-This package should be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py). New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
+This package should be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py). 
+New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
 
 ## Contents
 * [Supported Platforms](#supported-platforms)
@@ -15,27 +16,29 @@ This package should be used in conjunction with the overall [SparkFun qwiic Pyth
 * [Example Use](#example-use)
 
 Supported Platforms
---------------------
-The qwiic titan gps Python package current supports the following platforms:
+---
+The Qwiic Titan GPS Python package current supports the following platforms:
 * [Raspberry Pi](https://www.sparkfun.com/search/results?term=raspberry+pi)
-<!-- Platforms to be tested
-* [NVidia Jetson Nano](https://www.sparkfun.com/products/15297)
+
+Platforms to be tested
+---
+* [Nvidia Jetson Nano](https://www.sparkfun.com/products/15297)
 * [Google Coral Development Board](https://www.sparkfun.com/products/15318)
--->
 
 Dependencies 
 ---------------
-This package depends on the qwiic I2C driver: [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
+This package depends on the Qwiic I2C driver: [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
 
 Documentation
 -------------
-The SparkFun qwiic titan gps module documentation is hosted at [ReadTheDocs](https://qwiic-pca9685-py.readthedocs.io/en/latest/?)
+The SparkFun Qwiic Titan GPS module documentation is hosted at [ReadTheDocs](https://.readthedocs.io/en/latest/?)
 
 Installation
 -------------
 
 ### PyPi Installation
-This repository is hosted on PyPi as the [sparkfun-qwiic-pca9685](https://pypi.org/project/sparkfun-qwiic-pca9685/) package. On systems that support PyPi installation via pip, this library is installed using the following commands
+This repository is hosted on PyPi as the [sparkfun-qwiic-titan-gps](https://pypi.org/project/sparkfun-qwiic-titan-gps/) 
+package. On systems that support PyPi installation via pip, this library is installed using the following commands
 
 For all users (note: the user must have sudo privileges):
 ```sh
@@ -71,6 +74,28 @@ Example Use
 ---------------
 
 ```python
+def run_example():
+
+    print("SparkFun u-blox GPS!")
+    qwiicGPS = qwiic_titan_gps.QwiicTitanGps()
+
+    if qwiicGPS.connected is False:
+        print("Could not connect to to the SparkFun GPS Unit. Double check that\
+              it's wired correctly.", file=sys.stderr)
+        return
+
+    qwiicGPS.begin()
+
+    while True:
+        if qwiicGPS.get_nmea_data() is True:
+            print("Latitude: {}, Longitude: {}, Time: {}".format(
+                qwiicGPS.gnss_messages['Latitude'],
+                qwiicGPS.gnss_messages['Longitude'],
+                qwiicGPS.gnss_messages['Time']))
+
+        sleep(1)
+
+
 if __name__ == '__main__':
     try:
         run_example()
