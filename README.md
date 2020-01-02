@@ -30,7 +30,7 @@ This package depends on the Qwiic I2C driver: [Qwiic_I2C_Py](https://github.com/
 
 Documentation
 -------------
-The SparkFun Qwiic Titan GPS module documentation is hosted at [ReadTheDocs](https://.readthedocs.io/en/latest/?)
+The SparkFun Qwiic Titan GPS module documentation is hosted at [ReadTheDocs](https://qwiic-titan-gps-py.readthedocs.io/en/latest/)
 
 Installation
 -------------
