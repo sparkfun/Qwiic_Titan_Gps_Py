@@ -3,6 +3,8 @@
 # qwiic_gps_ex1.py
 #
 # Simple Example for SparkFun GPS Breakout - XA1110
+# In this example NMEA data is requested from the GPS module and the recieved Latitude,
+# Longitude, and Time data is printed to the screen.  
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, October 2019
@@ -43,7 +45,7 @@ import qwiic_titan_gps
 
 def run_example():
 
-    print("SparkFun u-blox GPS!")
+    print("SparkFun GPS Breakout - XA1110!")
     qwiicGPS = qwiic_titan_gps.QwiicTitanGps()
 
     if qwiicGPS.connected is False:

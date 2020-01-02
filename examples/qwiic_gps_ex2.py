@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# qwiic_gps_ex1.py
+# qwiic_gps_ex2.py
 #
 # Simple Example for SparkFun GPS Breakout - XA1110
+# In this example, much like the first, NMEA data is requested from the SparkFun
+# GPS Breakout Board. All data that is retrieved is the printed to the screen.
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, October 2019
@@ -33,7 +35,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 1
+# Example 2
 #
 
 from __future__ import print_function
@@ -43,7 +45,7 @@ import qwiic_titan_gps
 
 def run_example():
 
-    print("SparkFun u-blox GPS!")
+    print("SparkFun GPS Breakout - XA1110!")
     qwiicGPS = qwiic_titan_gps.QwiicTitanGps()
 
     if qwiicGPS.connected is False:
