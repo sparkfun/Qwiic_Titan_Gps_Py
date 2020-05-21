@@ -1,7 +1,7 @@
 Qwiic_GPS Breakout XA110
 ----
-![SparkFun GPS Breakout - XA1110
-(Qwiic)](https://cdn.sparkfun.com/r/500-500/assets/parts/1/2/3/4/0/14414-02.jpg)
+[![SparkFun GPS Breakout - XA1110
+(Qwiic)](https://cdn.sparkfun.com//assets/parts/1/2/3/4/0/14414-SparkFun_GPS_Breakout_-_XA1110__Qwiic_-01.jpg)](https://www.sparkfun.com/products/14414)
 
 This is a Python module for the SparkFun GPS Breakout - XA110. 
 
