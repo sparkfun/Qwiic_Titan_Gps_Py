@@ -65,7 +65,7 @@ To build a package for use with pip:
 ```sh
 python setup.py sdist
  ```
-A package file is built and placed in a subdirectory called dist. This package file can be installed using pip.
+A package file is built and placed in a subdirectory called "dist". This package file can be installed using pip.
 ```sh
 cd dist
 pip install sparkfun_qwiic_titan_gps-<version>.tar.gz
