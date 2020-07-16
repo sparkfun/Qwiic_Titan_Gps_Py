@@ -48,15 +48,14 @@
 
 qwiic_titan_gps
 ===============
-Python library for [SparkFun GPS Breakot -
-XA1110](https://www.sparkfun.com/products/14414)
+Python library for `SparkFun GPS Breakout -
+XA1110 <https://www.sparkfun.com/products/14414>`_
 
-This python package is a port of the existing [SparkFun GPS Arduino\
-Library](https://github.com/sparkfun/SparkFun_I2C_GPS_Arduino_Library).
+This python package is a port of the existing `SparkFun GPS Arduino Library <https://github.com/sparkfun/SparkFun_I2C_GPS_Arduino_Library>`_.
 
-This package can be used in conjunction with the overall [SparkFun Qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
+This package can be used in conjunction with the overall `SparkFun Qwiic Python Package <https://github.com/sparkfun/Qwiic_Py>`_
 
-New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
+New to Qwiic? Take a look at the entire `SparkFun Qwiic ecosystem <https://www.sparkfun.com/qwiic>`_.
 
 """
 from __future__ import print_function,division
